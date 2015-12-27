@@ -1,0 +1,10 @@
+var $cc = $('body');
+var html_str = "<%= j render_order_form %>";
+
+setTimeout(function () {
+    orderForm.hideLoader();
+    setTimeout(function () {
+        $cc.html(html_str);
+    },500);
+},100);
+

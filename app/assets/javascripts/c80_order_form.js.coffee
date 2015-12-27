@@ -1,0 +1,1 @@
+#= require frontend/ajax_form

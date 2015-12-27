@@ -1,8 +1,9 @@
+[![Gem Version](https://badge.fury.io/rb/c80_order_form.svg)](http://badge.fury.io/rb/c80_order_form)
+[![Build Status](https://travis-ci.org/c080609a/c80_order_form.svg?branch=master)](https://travis-ci.org/c080609a/c80_order_form)
+
 # C80OrderForm
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/c80_order_form`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gem allows to users to send order messages from site.
 
 ## Installation
 
@@ -22,7 +23,41 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+NOTE: This gem uses `activeadmin` gem, `jQuery` gem, `bootstrap-sass` gem and `c80_modal_forms` gem.
+
+Ensure, that your application's `Gemfile` contains these lines:
+```ruby
+# active admin
+gem 'activeadmin'
+gem 'devise'
+gem 'cancan' # or cancancan
+gem 'draper'
+gem 'pundit'
+
+gem 'jquery-rails'
+gem 'bootstrap-sass'
+gem 'c80_modal_forms'
+```
+
+You will need to add these lines into your `application.js`:
+
+    //= require bootstrap/modal
+    //= require c80_modals_form
+    //= require c80_order_form
+
+And add this line into `application.scss`:
+
+    @import "bootstrap-sprockets";
+    @import "bootstrap";
+    @import "c80_order_form";
+
+Add this line into `active_admin.scss`:
+
+    @import "c80_order_form_active_admin";
+
+Add this line into `routes.rb`:
+
+    mount C80OrderForm::Engine => '/'
 
 ## Development
 
