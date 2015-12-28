@@ -1,11 +1,12 @@
 module C80OrderForm
   module SiteHelper
 
-    def render_order_form
+    def render_order_form(predefined_comment="")
 
       render :partial => "c80_order_form/site/shared/order_form",
              :locals => {
-                 :mess => "MessageOrder.new"
+                 :mess => "MessageOrder.new",
+                 :predefined_comment => predefined_comment
              }
 
     end
@@ -14,7 +15,7 @@ module C80OrderForm
       render :partial => "c80_order_form/site/shared/ok_message",
              :locals => {
                  ok_text: "Мы свяжемся с Вами в ближайшее время.", # TODO_MY:: текст "мы свяжемся с вами ..." перенести в базу, в модель настроек гема
-                 wtitle: "Ваше сообщение отправлено" # TODO_MY:: текст "ваше сообщение отправлено" перенести в базу, в модель настроек гема
+                 wtitle: "Ваша заявка отправлена" # TODO_MY:: текст "ваше сообщение отправлено" перенести в базу, в модель настроек гема
              }
     end
 

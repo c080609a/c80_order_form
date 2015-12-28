@@ -8,6 +8,7 @@
 
 var orderForm;
 var $c80OrderInvokingBtns;
+var okMessage;
 
 $(function () {
 
@@ -61,20 +62,27 @@ $(function () {
 
             var init = function () {
                 $c80OrderInvokingBtns.click(function (e) {
+                    var $t = $(this);
                     e.preventDefault();
-                    _fGetOrderForm();
-                    loading.show($(this));
+                    _fGetOrderForm($t);
+                    loading.show($t);
                 });
             };
 
-            var _fGetOrderForm = function () {
+            var _fGetOrderForm = function ($clickedButton) {
                 if (!_markInvalidateInProgress) {
                     _markInvalidateInProgress = true;
 
                     if (!_markWasPasted) {
 
+                        var predefined_comment = '';
+                        if ($clickedButton.data('comment-text') != undefined) {
+                            predefined_comment = $clickedButton.data('comment-text');
+                        }
+
                         $.ajax({
                             url: '/give_me_order_form',
+                            data:{predefined_comment:predefined_comment},
                             type: 'POST',
                             dataType: 'script'
                         }).done(function (data, result) {
@@ -87,16 +95,13 @@ $(function () {
                 }
             };
 
-            var showForm = function (html_str) {
+            var fShowForm = function (html_str) {
 
                 var $cc = $('body');
                 $cc.append($(html_str));
 
                 __$f = $('#order_form');
-                //__$f.find(".close").click(__removeForm);
-                //__$f.find(".btn_close").click(__removeForm);
-
-                __$f.on('hidden.bs.modal', __removeForm);
+                __$f.on('hidden.bs.modal', __fRemoveForm);
 
                 var $form = $("form#form_order");
                 $form.bind("ajax:error", function (event, data, status, xhr) {
@@ -110,17 +115,32 @@ $(function () {
 
             };
 
-            var __removeForm = function () {
-                //console.log('<__removeForm>');
-                setTimeout(function () {
-                    __$f.remove();
-                    _markWasPasted = false;
-                }, 1000);
+            var fHideForm = function () {
+                __$f.modal('hide');
+            };
+
+            var __fRemoveForm = function () {
+                __$f.remove();
+                _markWasPasted = false;
             };
 
             return {
                 init: init,
-                showForm: showForm
+                show: fShowForm,
+                hide: fHideForm
+            }
+
+        })();
+
+        okMessage = (function () {
+
+            var fShow = function () {
+              var $form = $("#modal_ok");
+              $form.modal();
+            };
+
+            return {
+                show:fShow
             }
 
         })();

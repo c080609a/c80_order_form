@@ -1,4 +1,4 @@
-<%# render_ok_message %>
+<%= render_ok_message %>
 <div id="order_form" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -40,7 +40,7 @@
 
             <div class="form-group clearfix" style="margin-bottom: 0;">
               <%= f.label :comment, "Сообщение", class: 'control-label' %>
-              <%= f.text_area :comment, class: 'form-control', :rows => "4" %>
+              <%= f.text_area :comment, class: 'form-control', :rows => "4", :value => predefined_comment %>
               <span class="help-block col-md-12"></span>
             </div>
 
