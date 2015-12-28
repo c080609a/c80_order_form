@@ -137,6 +137,9 @@ $(function () {
             var fShow = function () {
               var $form = $("#modal_ok");
               $form.modal();
+              $form.on('hidden.bs.modal', function () {
+                  $form.remove();
+              });
             };
 
             return {
