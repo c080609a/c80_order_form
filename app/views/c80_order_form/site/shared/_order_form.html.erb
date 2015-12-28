@@ -1,8 +1,9 @@
-<%= render_ok_message %>
-<div id="order_form" tabindex="-1" role="dialog" aria-labelledby="orderForm" aria-hidden="true">
+<%# render_ok_message %>
+<div id="order_form" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title medium" id="myModalLabel">Обратная связь</h4> <!-- TODO_MY:: слово "обратная связь" перенести в настроки гема, в базу, в модель -->
       </div>
       <div class="modal-body regular">
@@ -45,10 +46,10 @@
 
             <div class="actions clearfix">
               <%= f.label " ", class: 'control-label' %>
-              <%= f.submit "Отправить",
+              <%= f.submit "Отправить", # TODO_MY:: надпись "Отправить" перенести в модель, в настройки гема
                            class: 'btn btn-primary',
                            data: {
-                                   disable_with: 'Отправляется...'
+                                   disable_with: 'Отправляется...' # TODO_MY:: надпись 'Отправляется...' перенести в модель, в настройки гема
                            }
               %>
             </div>
@@ -57,21 +58,10 @@
 
       </div>
 
+      <div class="modal-footer">
+        <button type="button" class="btn btn_close btn-default" data-dismiss="modal">Закрыть</button>
+      </div>
+
     </div>
   </div>
 </div>
-
-<%# настраиваем форму %>
-<script>
-    $(document).ready(function () {
-
-        var $form = $("form#form_order");
-
-        $form.bind("ajax:error", function (event, data, status, xhr) {
-            $form.render_form_errors($.parseJSON(data.responseText));
-        });
-
-        $form.modal_success();
-
-    });
-</script>
