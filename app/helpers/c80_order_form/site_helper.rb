@@ -1,12 +1,13 @@
 module C80OrderForm
   module SiteHelper
 
-    def render_order_form(predefined_comment="")
+    def render_order_form(predefined_comment="",subj_id=-1)
 
       render :partial => "c80_order_form/site/shared/order_form",
              :locals => {
                  :mess => "MessageOrder.new",
-                 :predefined_comment => predefined_comment
+                 :predefined_comment => predefined_comment,
+                 :subj_id => subj_id
              }
 
     end

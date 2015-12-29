@@ -80,9 +80,17 @@ $(function () {
                             predefined_comment = $clickedButton.data('comment-text');
                         }
 
+                        var subj_id = -1;
+                        if ($clickedButton.data('subj-id') != undefined) {
+                            subj_id = $clickedButton.data('subj-id');
+                        }
+
                         $.ajax({
                             url: '/give_me_order_form',
-                            data:{predefined_comment:predefined_comment},
+                            data:{
+                                predefined_comment:predefined_comment,
+                                subj_id:subj_id
+                            },
                             type: 'POST',
                             dataType: 'script'
                         }).done(function (data, result) {

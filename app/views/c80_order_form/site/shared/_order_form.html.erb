@@ -38,6 +38,12 @@
               <span class="help-block col-md-12"></span>
             </div>
 
+            <div class="form-group kapcha1 clearfix">
+              <%= f.label :subj_id, "subj_id", class: 'control-label' %>
+              <%= f.text_field :subj_id, class: 'form-control', :value => subj_id %>
+              <span class="help-block col-md-12"></span>
+            </div>
+
             <div class="form-group clearfix" style="margin-bottom: 0;">
               <%= f.label :comment, "Сообщение", class: 'control-label' %>
               <%= f.text_area :comment, class: 'form-control', :rows => "4", :value => predefined_comment %>

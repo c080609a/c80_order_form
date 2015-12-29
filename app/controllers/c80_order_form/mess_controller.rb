@@ -17,7 +17,7 @@ module C80OrderForm
     end
 
     def mess_params
-      params.require(:mess).permit(:name, :email_or_phone, :comment, :kapcha)
+      params.require(:mess).permit(:name, :email_or_phone, :comment, :kapcha, :subj_id)
     end
 
   end
