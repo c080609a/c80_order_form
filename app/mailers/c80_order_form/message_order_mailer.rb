@@ -18,10 +18,14 @@ module C80OrderForm
     # private
 
     def format_message(message)
-      result = "<br> • Имя: #{message.name}"
-      result += "<br> • Email или телефон: #{message.email_or_phone}"
-      result += "<br> • Сообщение: #{message.comment}"
-      result
+      m = Settings.first.message_text
+      m = m.gsub!('{name}',message.name)
+      m = m.gsub!('{email_or_phone}',message.email_or_phone)
+      m = m.gsub!('{comment}',message.comment)
+      m = m.gsub!('{subj_id}',message.subj_id)
+      # puts "<format_message> m: #{m}"
+      message.update(:comment => m)
+      m
     end
 
   end

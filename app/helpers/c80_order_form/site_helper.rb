@@ -3,6 +3,8 @@ module C80OrderForm
 
     def render_order_form(predefined_comment="",subj_id=-1)
 
+      @settings = Settings.first
+
       render :partial => "c80_order_form/site/shared/order_form",
              :locals => {
                  :mess => "MessageOrder.new",
@@ -13,10 +15,11 @@ module C80OrderForm
     end
 
     def render_ok_message
+      settings = Settings.first
       render :partial => "c80_order_form/site/shared/ok_message",
              :locals => {
-                 ok_text: "Мы свяжемся с Вами в ближайшее время.", # TODO_MY:: текст "мы свяжемся с вами ..." перенести в базу, в модель настроек гема
-                 wtitle: "Ваша заявка отправлена" # TODO_MY:: текст "ваше сообщение отправлено" перенести в базу, в модель настроек гема
+                 ok_text: settings.ok_text,
+                 wtitle: settings.ok_text_title
              }
     end
 

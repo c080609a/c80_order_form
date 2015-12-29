@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title medium" id="myModalLabel">Обратная связь</h4> <!-- TODO_MY:: слово "обратная связь" перенести в настроки гема, в базу, в модель -->
+        <h4 class="modal-title medium" id="myModalLabel"><%= @settings.order_form_title %></h4>
       </div>
       <div class="modal-body regular">
 
@@ -21,13 +21,13 @@
                      } do |f| %>
 
             <div class="form-group clearfix">
-              <%= f.label :name, "Имя", class: 'control-label must' %>
+              <%= f.label :name, @settings.order_form_label_name, class: 'control-label must' %>
               <%= f.text_field :name, class: 'form-control' %>
               <span class="help-block col-md-12"></span>
             </div>
 
             <div class="form-group clearfix">
-              <%= f.label :email_or_phone, "Email или телефон", class: 'control-label must' %>
+              <%= f.label :email_or_phone, @settings.order_form_label_email_or_phone, class: 'control-label must' %>
               <%= f.text_field :email_or_phone, class: 'form-control' %>
               <span class="help-block col-md-12"></span>
             </div>
@@ -38,24 +38,24 @@
               <span class="help-block col-md-12"></span>
             </div>
 
-            <div class="form-group kapcha1 clearfix">
+            <div class="form-group kapcha clearfix">
               <%= f.label :subj_id, "subj_id", class: 'control-label' %>
               <%= f.text_field :subj_id, class: 'form-control', :value => subj_id %>
               <span class="help-block col-md-12"></span>
             </div>
 
             <div class="form-group clearfix" style="margin-bottom: 0;">
-              <%= f.label :comment, "Сообщение", class: 'control-label' %>
+              <%= f.label :comment, @settings.order_form_label_comment, class: 'control-label' %>
               <%= f.text_area :comment, class: 'form-control', :rows => "4", :value => predefined_comment %>
               <span class="help-block col-md-12"></span>
             </div>
 
             <div class="actions clearfix">
               <%= f.label " ", class: 'control-label' %>
-              <%= f.submit "Отправить", # TODO_MY:: надпись "Отправить" перенести в модель, в настройки гема
+              <%= f.submit @settings.order_form_label_button_send,
                            class: 'btn btn-primary',
                            data: {
-                                   disable_with: 'Отправляется...' # TODO_MY:: надпись 'Отправляется...' перенести в модель, в настройки гема
+                                   disable_with: @settings.order_form_label_button_sending
                            }
               %>
             </div>

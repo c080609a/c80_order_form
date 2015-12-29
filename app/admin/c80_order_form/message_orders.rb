@@ -2,7 +2,7 @@ ActiveAdmin.register C80OrderForm::MessageOrder, :as => 'MessageOrder' do
 
   before_filter :skip_sidebar!, :only => :index
 
-  menu :parent => 'Сообщения', :label => 'Заявки' # TODO_MY:: слово "заявки" перенести в базу, в настройки гема
+  menu :parent => 'Сообщения', :label => C80OrderForm::Settings.first.admin_label_menu
 
   index do
     selectable_column
