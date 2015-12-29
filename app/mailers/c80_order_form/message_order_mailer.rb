@@ -15,7 +15,7 @@ module C80OrderForm
       #puts "#{SiteProps.first.mail_to}"
     end
 
-    private
+    # private
 
     def format_message(message)
       result = "<br> • Имя: #{message.name}"
