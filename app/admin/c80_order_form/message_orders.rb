@@ -2,7 +2,9 @@ ActiveAdmin.register C80OrderForm::MessageOrder, :as => 'MessageOrder' do
 
   before_filter :skip_sidebar!, :only => :index
 
-  menu :parent => 'Сообщения', :label => C80OrderForm::Settings.first.admin_label_menu
+  if ActiveRecord::Base.connection.table_exists?('c80_order_form_settings')
+    menu :parent => 'Сообщения', :label => C80OrderForm::Settings.first.admin_label_menu if C80OrderForm::Settings.first.present?
+  end
 
   index do
     selectable_column

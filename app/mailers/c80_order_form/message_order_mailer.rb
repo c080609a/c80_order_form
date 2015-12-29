@@ -22,7 +22,7 @@ module C80OrderForm
       m = m.gsub!('{name}',message.name)
       m = m.gsub!('{email_or_phone}',message.email_or_phone)
       m = m.gsub!('{comment}',message.comment)
-      m = m.gsub!('{subj_id}',message.subj_id)
+      m = m.gsub!('{subj_id}',message.subj_id.to_s)
       # puts "<format_message> m: #{m}"
       message.update(:comment => m)
       m
