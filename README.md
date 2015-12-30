@@ -42,6 +42,7 @@ gem 'c80_modal_forms'
 You will need to add these lines into your `application.js`:
 
     //= require bootstrap/modal
+    //= require bootstrap/transitions
     //= require c80_modals_form
     //= require c80_order_form
 
