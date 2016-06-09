@@ -121,6 +121,11 @@ $(function () {
                     loading.hide();
                 },1000);
 
+                console.log("<this.afterShowForm>" + this.afterShowForm);
+                if (this.afterShowForm) {
+                    setTimeout(this.afterShowForm,200);
+                }
+
             };
 
             var fHideForm = function () {
