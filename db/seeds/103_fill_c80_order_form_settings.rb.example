@@ -1,0 +1,21 @@
+# rake db:seed:103_fill_order_form_settings
+
+C80OrderForm::Settings.delete_all
+C80OrderForm::Settings.create!({
+                                   :order_form_title => "Заявка на бронирование",
+                                   :order_form_label_name => "Имя",
+                                   :order_form_label_email_or_phone => "Email или телефон",
+                                   :order_form_label_comment => "Комментарий",
+                                   :order_form_label_button_send => "Отправить",
+                                   :order_form_label_button_sending => "Отправляется...",
+                                   :ok_text => "Мы свяжемся с Вами в ближайшее время",
+                                   :ok_text_title => "Ваша заявка отправлена",
+                                   :admin_label_menu => "Заявки на бронирование",
+                                   :message_letter_subj => "Заявка на бронирование",
+                                   :message_text => " • Имя: {name}<br>" +
+                                       " • Email или телефон: {email_or_phone}<br>" +
+                                       " • Сообщение: {comment}<br>" +
+                                       " --------------------------------------<br>" +
+                                       " Бронируемая площадь: <a href='http://new.bc-acond.ru/areas/{subj_id}'>http://new.bc-acond.ru/areas/{subj_id}</a><br>" +
+                                       " Бронируемая площадь в админке: <a href='http://new.bc-acond.ru/admin/areas/{subj_id}/edit'>http://new.bc-acond.ru/admin/areas/{subj_id}</a><br>"
+                               })
