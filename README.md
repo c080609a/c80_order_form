@@ -5,6 +5,16 @@
 
 This gem allows to users to send order messages from site.
 
+# Features
+
+* Сообщения сохраняются в базу, их можно просмотреть через админку, они уходят на почту 
+("хардкод", зависимость от окружения: `SiteProp.first.mail_from` и `SiteProp.first.mail_to`,
+см. `c80_order_form/app/mailers/c80_order_form/message_order_mailer.rb`).
+* Форма защищена от спама без каких либо капч - она приходит с сервера в виде html-строки при клике по кнопке 
+и вставляется на страницу с помощью js.
+* Можно вводить как *правильный* номер телефона (в каком угодно формате), так и *корректный* 
+email в одно единственное поле.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -13,15 +23,10 @@ Add this line to your application's Gemfile:
 gem 'c80_order_form'
 ```
 
-And then execute:
+Migrate:
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install c80_order_form
-
-## Usage
+    
+## Setup
 
 NOTE: This gem uses `activeadmin` gem, `jQuery` gem, `bootstrap-sass` gem and `c80_modal_forms` gem.
 
@@ -43,7 +48,7 @@ You will need to add these lines into your `application.js`:
 
     //= require bootstrap/modal
     //= require bootstrap/transitions
-    //= require c80_modals_form
+    //= require c80_modal_forms
     //= require c80_order_form
 
 And add this line into `application.scss`:
@@ -60,7 +65,73 @@ Add this line into `routes.rb`:
 
     mount C80OrderForm::Engine => '/'
 
-Form invoked by link with class `c80_order_invoking_btn`.
+Wget `custom_seed.rake` to `lib/tasks`:
+
+    $ cd lib/tasks
+    $ wget https://gist.githubusercontent.com/c80609a/ce9058d176c793877562411439b27a17/raw/288d7c57c25debc972541633077a99177c2b689c/custom_seed.rake
+
+Create and execute the seed `db/seeds`:
+
+```
+# rake db:seed:103_fill_order_form_settings
+
+C80OrderForm::Settings.delete_all
+C80OrderForm::Settings.create!({
+                                   :order_form_title => "Заявка на бронирование",
+                                   :order_form_label_name => "Имя",
+                                   :order_form_label_email_or_phone => "Email или телефон",
+                                   :order_form_label_comment => "Комментарий",
+                                   :order_form_label_button_send => "Отправить",
+                                   :order_form_label_button_sending => "Отправляется...",
+                                   :ok_text => "Мы свяжемся с Вами в ближайшее время",
+                                   :ok_text_title => "Ваша заявка отправлена",
+                                   :admin_label_menu => "Заявки на бронирование",
+                                   :message_letter_subj => "Заявка на бронирование",
+                                   :message_text => " • Имя: {name}<br>" +
+                                       " • Email или телефон: {email_or_phone}<br>" +
+                                       " • Сообщение: {comment}<br>" +
+                                       " --------------------------------------<br>" +
+                                       " Бронируемая площадь: <a href='http://xxx.ru/areas/{subj_id}'>http://xxx.ru/areas/{subj_id}</a><br>" +
+                                       " Бронируемая площадь в админке: <a href='http://xxx.ru/admin/areas/{subj_id}/edit'>http://xxx.ru/admin/areas/{subj_id}</a><br>"
+                               })
+```
+
+Или такой файл (если подразумевается абстрактное сообщение с сайта, не свяазанное ни с каким объектом):
+
+```
+# rake db:seed:103_fill_order_form_settings
+
+C80OrderForm::Settings.delete_all
+C80OrderForm::Settings.create!({
+                                   :order_form_title => 'Заявка на бронирование',
+                                   :order_form_label_name => 'Имя',
+                                   :order_form_label_email_or_phone => 'Email или телефон',
+                                   :order_form_label_comment => 'Комментарий',
+                                   :order_form_label_button_send => 'Отправить',
+                                   :order_form_label_button_sending => 'Отправляется...',
+                                   :ok_text => 'Мы свяжемся с Вами в ближайшее время',
+                                   :ok_text_title => 'Ваша заявка отправлена',
+                                   :admin_label_menu => 'Заявки на бронирование',
+                                   :message_letter_subj => 'Заявка на бронирование',
+                                   :message_text => ' • Имя: {name}<br>' +
+                                       ' • Email или телефон: {email_or_phone}<br>' +
+                                       ' • Сообщение: {comment}'
+                               })
+```
+
+## Usage
+
+Form invoked by link with class `c80_order_invoking_btn`:
+
+```slim
+        = link_to "Book it",
+                  "#",
+                  :title => "Book it",
+                  :class => "c80_order_invoking_btn",
+                  :data => { :comment_text => "Hello, I want book the room '#{@area.title}'.", 
+                             :subj_id => @area.id 
+                  }
+```
 
 ## Development
 
